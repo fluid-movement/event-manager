@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
@@ -10,6 +11,6 @@ class DashboardController extends Controller
     {
         $events = Event::findForUser(auth()->user())->get()->sortBy('start');
         $group = auth()->user()->group;
-        return view('dashboard', compact('events', 'group'));
+        Inertia::render('Dashboard', compact('events', 'group'));
     }
 }

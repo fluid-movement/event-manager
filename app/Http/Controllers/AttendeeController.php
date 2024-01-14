@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AttendeeController extends Controller
 {
@@ -28,7 +29,10 @@ class AttendeeController extends Controller
      */
     public function store(Request $request, Event $event)
     {
-        redirect()->route('events.show', compact('event'));
+
+        Inertia::render('Events/Show', [
+            'event' => $event,
+        ]);
     }
 
     /**

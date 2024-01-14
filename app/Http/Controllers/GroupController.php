@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class GroupController extends Controller
 {
@@ -12,8 +13,8 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return view('groups.index', [
-            'groups' => Group::all()->sortBy('name')
+        Inertia::render('Groups/Index', [
+            'groups' => Group::all()->sortBy('name'),
         ]);
     }
 
@@ -38,7 +39,7 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        return view('groups.show', [
+        Inertia::render('Groups/Show', [
             'group' => $group,
         ]);
     }
