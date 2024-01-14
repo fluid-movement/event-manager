@@ -35,4 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// not react, but still
+Route::resource('events', \App\Http\Controllers\EventController::class)->only(['index', 'show']);
+Route::resource('groups', \App\Http\Controllers\GroupController::class)->only(['index', 'show']);
+Route::resource('attendees', \App\Http\Controllers\AttendeeController::class)->only(['store', 'destroy']);
+
+
 require __DIR__.'/auth.php';
