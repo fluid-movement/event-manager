@@ -13,7 +13,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        Inertia::render('Events/Index', [
+        Inertia::render('Events/All', [
             'events' => Event::all()->sortBy('start'),
         ]);
     }
