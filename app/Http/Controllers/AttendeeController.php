@@ -30,7 +30,7 @@ class AttendeeController extends Controller
     public function store(Request $request, Event $event)
     {
 
-        Inertia::render('Events/Show', [
+        return Inertia::render('Events/Show', [
             'event' => $event,
         ]);
     }

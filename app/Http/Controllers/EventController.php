@@ -13,7 +13,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        Inertia::render('Events/All', [
+        return Inertia::render('Events/All', [
             'events' => Event::all()->sortBy('start'),
         ]);
     }
@@ -39,7 +39,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        Inertia::render('Events/Show', [
+        return Inertia::render('Events/Show', [
             'event' => $event,
         ]);
     }

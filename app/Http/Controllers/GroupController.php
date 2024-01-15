@@ -13,7 +13,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        Inertia::render('Groups/Index', [
+        return Inertia::render('Groups/All', [
             'groups' => Group::all()->sortBy('name'),
         ]);
     }
@@ -39,7 +39,7 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        Inertia::render('Groups/Show', [
+        return Inertia::render('Groups/Show', [
             'group' => $group,
         ]);
     }
