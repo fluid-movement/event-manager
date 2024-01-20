@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +27,13 @@ Route::get('/', function () {
     ]);
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/events', [EventController::class, 'index'])->name('events.index');
+    Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
+    Route::get('/groups', [GroupController::class, 'index'])->name('groups.index');
+    Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -34,11 +43,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-// not react, but still
-Route::resource('events', \App\Http\Controllers\EventController::class)->only(['index', 'show']);
-Route::resource('groups', \App\Http\Controllers\GroupController::class)->only(['index', 'show']);
-Route::resource('attendees', \App\Http\Controllers\AttendeeController::class)->only(['store', 'destroy']);
-
 
 require __DIR__.'/auth.php';
