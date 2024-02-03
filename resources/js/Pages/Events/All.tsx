@@ -2,7 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
 
-export default function All({ auth }: PageProps) {
+export default function All({ auth, groups }: PageProps) {
     return (
         <AuthenticatedLayout
             user={auth.user}
