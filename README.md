@@ -11,6 +11,9 @@ graph
 	event -- hosted by --> group
 ```
 
+## Trello
+https://trello.com/b/iEyCEVau/event-calendar
+
 ## what is it
 - A page for seeing what events are happening, when and where
 - Users are part of a "Group" (aka frisbee crew)
@@ -19,11 +22,16 @@ graph
 - **no social features** Users can't see other users, no public profiles
 - "new events" section, events since the last time the user looked at the page
 
+## API
+https://documenter.getpostman.com/view/32067704/2s9YyvC1LU
+
+Simple API for getting events and groups
+
 ## Entities
 
 ### User
-- Users must register
-- Can be part of one (or more?) groups (aka frisbee crews)
+- Users must register to be part of a group and create events
+- Can be part of many groups (aka frisbee crews)
 - If they are part of a group, they can:
     - create an event
     - edit an event of that group
@@ -43,10 +51,6 @@ graph
 ### Group
 - Events are tied to a group
 - Everyone in a group can edit an event, or perform actions on it
-
-## Questions
-- who can delete events?
-- who can create events?
 
 ## Pages
 - /dashboard (name tbd)
