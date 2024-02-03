@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,7 +16,7 @@ class EventController extends Controller
     public function index()
     {
         return Inertia::render('Events/All', [
-            'events' => Event::all()->sortBy('start'),
+            'events' => Event::all(),
         ]);
     }
 
@@ -23,15 +25,18 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Events/Create', [
+            'user_groups' => auth()->user()->groups,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEventRequest $request)
     {
-        //
+        $event = Event::create($request->validated());
+        to_route('events.show', ['event' => $event]);
     }
 
     /**
@@ -47,24 +52,28 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Event $event)
     {
-        //
+        return Inertia::render('Events/Edit', [
+            'event' => $event,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateEventRequest $request, Event $event)
     {
-        //
+        $event->update($request->validated());
+        to_route('events.show', ['event' => $event]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Event $event)
     {
-        //
+        $event->delete();
+        to_route('events.index');
     }
 }

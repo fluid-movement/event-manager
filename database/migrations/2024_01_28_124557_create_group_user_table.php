@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('group_user', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Group::class);
-            $table->string('name');
-            $table->string('slug');
-            $table->string('city')->nullable();
-            $table->string('country')->nullable();
-            $table->text('description')->nullable();
-            $table->date('start');
-            $table->date('end');
+            $table->foreignIdFor(\App\Models\User::class);
+            $table->string('role')->default('member');
+            $table->unique(['group_id', 'user_id']);
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('group_user');
     }
 };

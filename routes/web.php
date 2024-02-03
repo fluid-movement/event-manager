@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProfileController;
@@ -27,12 +28,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/events', [EventController::class, 'index'])->name('events.index');
-    Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
-    Route::get('/groups', [GroupController::class, 'index'])->name('groups.index');
-    Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
-});
+Route::resource('events', EventController::class);
+Route::resource('groups', GroupController::class);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

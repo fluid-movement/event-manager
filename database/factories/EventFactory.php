@@ -16,20 +16,20 @@ class EventFactory extends Factory
      */
     public function definition(): array
     {
-        $events = ['Paganello', 'FPA World Championships', 'European Championships',
-            '1234 Berlin Hat', 'The Jam Session', 'Munich Mash', 'Beljam', 'Rose Bowl', 'Frisbeer Cup', 'Summit & Sea',
-            'Cranbury Jam', 'Anzio Jam'];
-        $date = $this->faker->dateTimeBetween('now', '+8 month');
-        $days = rand(2, 5);
-        $name = $events[array_rand($events)];
+        // $events = ['Paganello', 'FPA World Championships', 'European Championships','1234 Berlin Hat', 'The Jam Session', 'Munich Mash', 'Beljam', 'Rose Bowl', 'Frisbeer Cup', 'Summit & Sea','Cranbury Jam', 'Anzio Jam'];
+        $start = $this->faker->dateTimeBetween('now', '+8 month');
+        $end = clone $start;
+        $days = rand(0, 3);
+        $end->add(new \DateInterval("P{$days}D"));
+        $name = $this->faker->words(rand(1, 3), true);
         return [
             'name' => $name,
             'slug' => \Str::slug($name),
             'description' => $this->faker->text,
             'city' => $this->faker->city(),
             'country' => $this->faker->country(),
-            'start' => $date,
-            'end' => $date->modify("+$days days"),
+            'start' => $start->format('Y-m-d'),
+            'end' => $end->format('Y-m-d'),
         ];
     }
 }

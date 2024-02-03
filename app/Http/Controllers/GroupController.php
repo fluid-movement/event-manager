@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreGroupRequest;
+use App\Http\Requests\UpdateGroupRequest;
 use App\Models\Group;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,7 +16,7 @@ class GroupController extends Controller
     public function index()
     {
         return Inertia::render('Groups/All', [
-            'groups' => Group::all()->sortBy('name'),
+            'groups' => Group::all(),
         ]);
     }
 
@@ -23,15 +25,17 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Groups/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreGroupRequest $request)
     {
-        //
+        $group = Group::create($request->validated());
+        auth()->user()->groups()->attach($group);
+        to_route('groups.show', ['group' => $group]);
     }
 
     /**
@@ -47,24 +51,28 @@ class GroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Group $group)
     {
-        //
+        return Inertia::render('Groups/Edit', [
+            'group' => $group,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateGroupRequest $request, Group $group)
     {
-        //
+        $group->update($request->validated());
+        to_route('groups.show', ['group' => $group]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Group $group)
     {
-        //
+        $group->delete();
+        to_route('groups.index');
     }
 }
