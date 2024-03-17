@@ -35,7 +35,7 @@ class ImportData extends Command implements Isolatable
     public function handle()
     {
         // download resource
-        //$this->download();
+        $this->download();
         $data = json_decode(file_get_contents(storage_path(config('import.storage_path'))), true);
 
         // import data

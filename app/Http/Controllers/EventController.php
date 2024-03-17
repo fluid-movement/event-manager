@@ -16,7 +16,6 @@ class EventController extends Controller
     public function index()
     {
         return Inertia::render('Events/All', [
-            'upcomingEvents' => Event::upcoming(),
             'events' => Event::all(),
         ]);
     }
