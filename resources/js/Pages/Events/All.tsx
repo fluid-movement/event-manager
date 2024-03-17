@@ -4,7 +4,7 @@ import { PageProps } from "@/types/page";
 import { Container, Separator } from "@radix-ui/themes";
 import EventCard from "./_components/EventCard";
 import Filter from "./_components/Filter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Event } from "@/types/types";
 
 type EventsPageProps = {
@@ -15,6 +15,10 @@ type EventsPageProps = {
 export default function All({ auth, events }: EventsPageProps) {
     const [filteredEvents, setFilteredEvents] = useState(events);
     const [filter, setFilter] = useState<string | number>("upcoming");
+
+    useEffect(() => {
+        onFilter(filter);
+    }, []);
 
     const onSearch = (value: string) => {
         const filtered = events.filter((event) =>
