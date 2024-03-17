@@ -64,6 +64,11 @@ class Event extends Model
         return $this->start->isSameDay($this->end);
     }
 
+    public function scopeUpcoming($query)
+    {
+        return $query->where('start', '>=', now());
+    }
+
     protected static function booted()
     {
         static::addGlobalScope(new OrderByStartAsc);
