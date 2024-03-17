@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Event extends Model
 {
@@ -33,11 +34,6 @@ class Event extends Model
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
-    }
-
-    public function link(): string
-    {
-        return route('events.show', $this);
     }
 
     public function users(): BelongsToMany
@@ -65,14 +61,9 @@ class Event extends Model
         return 'slug';
     }
 
-    public function isOver():bool
+    public function getLinkAttribute(): string
     {
-        return $this->end->isPast();
-    }
-
-    public function isOneDay():bool
-    {
-        return $this->start->isSameDay($this->end);
+        return $this->link;
     }
 
     protected static function booted()
@@ -87,14 +78,10 @@ class Event extends Model
             $model->appendYearToSlug();
         });
     }
-    protected function setSlug()
+
+    protected function appendYearToSlug(): void
     {
         $this->slug = \Str::slug($this->name);
-    }
-
-    public function appendYearToSlug()
-    {
-        $this->setSlug();
         $year = date('Y', $this->start->getTimestamp());
         // Check if the slug already ends with a 4-digit number
         if (preg_match('/-\d{4}$/', $this->slug)) {

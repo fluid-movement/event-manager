@@ -60,23 +60,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(Player::class);
     }
-
-    public function notAttending(Event $event): bool
-    {
-        return !$this->events()->find($event->id);
-    }
-
-    public function attending(Event $event): bool
-    {
-        return (bool)$this->belongsToMany(Event::class)
-            ->wherePivot('status', Event::$attending)
-            ->find($event->id);
-    }
-
-    public function interested(Event $event): bool
-    {
-        return (bool)$this->belongsToMany(Event::class)
-            ->wherePivot('status', Event::$interested)
-            ->find($event->id);
-    }
 }
