@@ -1,19 +1,21 @@
 import { PropsWithChildren, ReactNode } from "react";
-import { Box } from "@radix-ui/themes";
+import { Box, Container } from "@radix-ui/themes";
+import { User } from "@/types/types";
+
 export default function Authenticated({
     user,
     header,
     children,
-}: PropsWithChildren<{ user: App.Models.User; header?: ReactNode }>) {
+}: PropsWithChildren<{ user: User; header?: ReactNode }>) {
     return (
         <>
-            <header className="bg-white shadow">
-                <Box className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {header}
-                </Box>
-            </header>
+            <Container size="3" px="4">
+                <header className="bg-white shadow">
+                    <Box className="max-w-7xl mx-auto py-6">{header}</Box>
+                </header>
 
-            {children}
+                {children}
+            </Container>
         </>
     );
 }
