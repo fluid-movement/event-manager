@@ -31,6 +31,7 @@ class EventApiResource extends JsonResource
                 'api' => route('api-events.show', $this),
             ],
             'group' => new GroupApiResource($this->whenLoaded('group')),
+            'results' => ResultApiResource::collection($this->whenLoaded('results')),
         ];
     }
 }

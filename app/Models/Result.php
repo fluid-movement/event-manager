@@ -15,6 +15,8 @@ class Result extends Model
 
     public $guarded = [];
 
+    protected $with = ['teams'];
+
     public function teams(): HasMany
     {
         return $this->hasMany(Team::class);

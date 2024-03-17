@@ -27,6 +27,6 @@ class EventApiController extends Controller
      */
     public function show(Event $event)
     {
-        return new EventApiResource($event->load('group'));
+        return new EventApiResource($event->load('group', 'results'));
     }
 }

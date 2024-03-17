@@ -74,3 +74,4 @@ Simple API for getting events and groups
 - 2024-03-17
   - add link attribute to event and group
   - add group attribute to event
+  - add results to api calls and web requests

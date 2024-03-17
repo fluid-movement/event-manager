@@ -44,7 +44,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        $event->load('group');
+        $event->load('group', 'results');
         return Inertia::render('Events/Show', [
             'event' => $event,
         ]);

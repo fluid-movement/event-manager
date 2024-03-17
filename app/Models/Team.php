@@ -14,6 +14,8 @@ class Team extends Model
 
     public $guarded = [];
 
+    protected $with = ['players'];
+
     public function players(): BelongsToMany
     {
         return $this->belongsToMany(Player::class);
