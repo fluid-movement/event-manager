@@ -35,6 +35,11 @@ class Event extends Model
         return $this->belongsTo(Group::class);
     }
 
+    public function link(): string
+    {
+        return route('events.show', $this);
+    }
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->withPivot('status');
