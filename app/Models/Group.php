@@ -13,7 +13,13 @@ class Group extends Model
 {
     use HasFactory, hasUuids;
 
+    public string $link;
+
     protected $guarded = ['id'];
+
+    protected $dispatchesEvents = [
+        'retrieved' => \App\Events\ModelRetrieved::class,
+    ];
 
     public function events(): HasMany
     {

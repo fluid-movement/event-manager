@@ -14,10 +14,16 @@ class Event extends Model
 {
     use HasFactory, hasUuids;
 
+    public string $link;
+
     public static string $attending = 'attending';
     public static string $interested = 'interested';
 
     protected $guarded = ['id'];
+
+    protected $dispatchesEvents = [
+        'retrieved' => \App\Events\ModelRetrieved::class,
+    ];
 
     protected $casts = [
         'start' => 'date',
