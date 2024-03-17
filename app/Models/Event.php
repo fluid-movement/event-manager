@@ -15,8 +15,6 @@ class Event extends Model
 {
     use HasFactory, hasUuids;
 
-    public string $link;
-
     public static string $attending = 'attending';
     public static string $interested = 'interested';
 
@@ -64,6 +62,11 @@ class Event extends Model
     public function getLinkAttribute(): string
     {
         return $this->link;
+    }
+
+    public function setLinkAttribute(string $link): void
+    {
+        $this->link = $link;
     }
 
     protected static function booted()

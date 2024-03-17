@@ -35,9 +35,15 @@ class Group extends Model
     {
         return 'slug';
     }
+
     public function getLinkAttribute(): string
     {
         return $this->link;
+    }
+
+    public function setLinkAttribute(string $link): void
+    {
+        $this->link = $link;
     }
 
     protected static function booted()
