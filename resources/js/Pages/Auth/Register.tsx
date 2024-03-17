@@ -1,117 +1,186 @@
-import { useEffect, FormEventHandler } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { useEffect, FormEventHandler } from "react";
+import GuestLayout from "@/Layouts/GuestLayout";
+import InputError from "@/Components/InputError";
+import { Head, Link, useForm } from "@inertiajs/react";
+import {
+    PersonIcon,
+    LockClosedIcon,
+    ArrowRightIcon,
+} from "@radix-ui/react-icons";
+import {
+    Box,
+    TextField,
+    Text,
+    Flex,
+    Checkbox,
+    Button,
+    Separator,
+    Container,
+    Link as RadixLink,
+} from "@radix-ui/themes";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        remember: false,
     });
 
     useEffect(() => {
         return () => {
-            reset('password', 'password_confirmation');
+            reset("password", "password_confirmation");
         };
     }, []);
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('register'));
+        post(route("register"));
     };
+
+    console.log(data);
 
     return (
         <GuestLayout>
             <Head title="Register" />
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
+            <Container size="1">
+                <Box py="9">
+                    <form onSubmit={submit}>
+                        <Box>
+                            <TextField.Root>
+                                <TextField.Slot>
+                                    <PersonIcon height="16" width="16" />
+                                </TextField.Slot>
+                                <TextField.Input
+                                    placeholder="Username"
+                                    type="name"
+                                    name="name"
+                                    size="3"
+                                    onChange={(e) =>
+                                        setData("name", e.target.value)
+                                    }
+                                    autoComplete="name"
+                                />
+                            </TextField.Root>
 
-                    <TextInput
-                        id="name"
-                        name="name"
-                        value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
-                    />
+                            <InputError
+                                message={errors.name}
+                                className="mt-2"
+                            />
+                        </Box>
 
-                    <InputError message={errors.name} className="mt-2" />
-                </div>
+                        <Box className="mt-4">
+                            <TextField.Root>
+                                <TextField.Slot>
+                                    <PersonIcon height="16" width="16" />
+                                </TextField.Slot>
+                                <TextField.Input
+                                    placeholder="Email"
+                                    type="email"
+                                    name="email"
+                                    size="3"
+                                    onChange={(e) =>
+                                        setData("email", e.target.value)
+                                    }
+                                    autoComplete="email"
+                                />
+                            </TextField.Root>
+                        </Box>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
+                        <Box className="mt-4">
+                            <TextField.Root>
+                                <TextField.Slot>
+                                    <LockClosedIcon height="16" width="16" />
+                                </TextField.Slot>
+                                <TextField.Input
+                                    placeholder="Password"
+                                    type="password"
+                                    name="password"
+                                    size="3"
+                                    onChange={(e) =>
+                                        setData("password", e.target.value)
+                                    }
+                                />
+                            </TextField.Root>
+                        </Box>
 
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
-                    />
+                        <Box className="mt-4">
+                            <TextField.Root>
+                                <TextField.Slot>
+                                    <LockClosedIcon height="16" width="16" />
+                                </TextField.Slot>
+                                <TextField.Input
+                                    placeholder="Confirm Password"
+                                    type="password"
+                                    name="password_confirmation"
+                                    size="3"
+                                    onChange={(e) =>
+                                        setData(
+                                            "password_confirmation",
+                                            e.target.value
+                                        )
+                                    }
+                                />
+                            </TextField.Root>
 
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
+                            <InputError
+                                message={errors.password_confirmation}
+                                className="mt-2"
+                            />
+                        </Box>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                        <Flex
+                            direction="row"
+                            gap="2"
+                            align={"center"}
+                            justify={"between"}
+                            mt="6"
+                        >
+                            <Text as="label" size="2">
+                                <Flex gap="2">
+                                    <Checkbox
+                                        name="remember"
+                                        checked={data.remember}
+                                        onCheckedChange={(checkedState) =>
+                                            setData("remember", !!checkedState)
+                                        }
+                                    />
+                                    Remember me
+                                </Flex>
+                            </Text>
+                            <Button
+                                className="ms-4"
+                                disabled={processing}
+                                size={"3"}
+                            >
+                                Register
+                            </Button>
+                        </Flex>
 
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                        required
-                    />
+                        <Separator mt="4" mb="6" size="4" />
 
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Already registered?
-                    </Link>
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Register
-                    </PrimaryButton>
-                </div>
-            </form>
+                        <Flex
+                            className="text-right"
+                            direction="row"
+                            gap="2"
+                            align={"center"}
+                            justify={"between"}
+                        >
+                            <Text size="2">Already have an account?</Text>
+                            <Link href={route("login")}>
+                                <RadixLink size="2">
+                                    <Button size="2" variant="surface">
+                                        Login <ArrowRightIcon />
+                                    </Button>
+                                </RadixLink>
+                            </Link>
+                        </Flex>
+                    </form>
+                </Box>
+            </Container>
         </GuestLayout>
     );
 }

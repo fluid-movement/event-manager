@@ -1,6 +1,5 @@
 import { useEffect, FormEventHandler } from "react";
 import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/Components/InputError";
 import { Head, Link, useForm } from "@inertiajs/react";
 import {
     Button,
@@ -61,7 +60,7 @@ export default function Login({
                                     <PersonIcon height="16" width="16" />
                                 </TextField.Slot>
                                 <TextField.Input
-                                    placeholder="Username"
+                                    placeholder="Email"
                                     type="email"
                                     size="3"
                                     onChange={(e) =>
