@@ -13,13 +13,9 @@ class Group extends Model
 {
     use HasFactory, hasUuids;
 
-    public string $link;
-
     protected $guarded = ['id'];
 
-    protected $dispatchesEvents = [
-        'retrieved' => \App\Events\ModelRetrieved::class,
-    ];
+    protected $appends = ['link'];
 
     public function events(): HasMany
     {
@@ -38,12 +34,7 @@ class Group extends Model
 
     public function getLinkAttribute(): string
     {
-        return $this->link;
-    }
-
-    public function setLinkAttribute(string $link): void
-    {
-        $this->link = $link;
+        return route('groups.show', $this->slug);
     }
 
     protected static function booted()

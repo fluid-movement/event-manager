@@ -68,3 +68,9 @@ Simple API for getting events and groups
 - Event "Happening this month preview"
 - "find jams in your area"?
 - .ics subscription?
+
+# Last updates:
+
+- 2024-03-17
+  - add link attribute to event and group
+  - add group attribute to event

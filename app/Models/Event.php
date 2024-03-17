@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use App\Models\Scopes\OrderByStartAsc;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Event extends Model
 {
@@ -20,14 +20,12 @@ class Event extends Model
 
     protected $guarded = ['id'];
 
-    protected $dispatchesEvents = [
-        'retrieved' => \App\Events\ModelRetrieved::class,
-    ];
-
     protected $casts = [
         'start' => 'date',
         'end' => 'date',
     ];
+
+    protected $appends = ['link'];
 
     public function group(): BelongsTo
     {
@@ -61,12 +59,7 @@ class Event extends Model
 
     public function getLinkAttribute(): string
     {
-        return $this->link;
-    }
-
-    public function setLinkAttribute(string $link): void
-    {
-        $this->link = $link;
+        return route('events.show', $this);
     }
 
     protected static function booted()

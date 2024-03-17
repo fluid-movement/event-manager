@@ -16,7 +16,7 @@ class EventController extends Controller
     public function index()
     {
         return Inertia::render('Events/All', [
-            'events' => Event::all(),
+            'events' => Event::with('group')->get(),
         ]);
     }
 
@@ -44,6 +44,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
+        $event->load('group');
         return Inertia::render('Events/Show', [
             'event' => $event,
         ]);
