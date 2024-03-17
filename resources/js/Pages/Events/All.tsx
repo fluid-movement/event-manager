@@ -14,7 +14,7 @@ type EventsPageProps = {
 
 export default function All({ auth, events }: EventsPageProps) {
     const [filteredEvents, setFilteredEvents] = useState(events);
-    const [filter, setFilter] = useState<string | number>("");
+    const [filter, setFilter] = useState<string | number>("upcoming");
 
     const onSearch = (value: string) => {
         const filtered = events.filter((event) =>
