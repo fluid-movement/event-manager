@@ -3,10 +3,11 @@ import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types/page";
 import { Heading } from "@radix-ui/themes";
 
-export default function Dashboard({ auth }: PageProps) {
+export default function Dashboard(props: PageProps) {
+    console.log(props);
     return (
         <AuthenticatedLayout
-            user={auth.user}
+            user={props.auth.user}
             header={
                 <Heading className="font-semibold text-xl text-gray-800 leading-tight">
                     Dashboard
