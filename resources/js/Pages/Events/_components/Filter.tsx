@@ -12,12 +12,12 @@ import * as Collapsible from "@radix-ui/react-collapsible";
 
 type FilterProps = {
     onSearch: (value: string) => void;
-    onFilter: (value: string) => void;
-    filter: string;
+    onFilter: (value: string | number) => void;
+    filter: string | number;
 };
 
 const Filter = ({ onSearch, onFilter, filter }: FilterProps) => {
-    const handleOnFilter = (value: string) => {
+    const handleOnFilter = (value: string | number) => {
         if (filter === value) {
             onFilter("");
             return;
@@ -41,12 +41,12 @@ const Filter = ({ onSearch, onFilter, filter }: FilterProps) => {
                             <MagnifyingGlassIcon height="16" width="16" />
                         </TextField.Slot>
                         <TextField.Input
-                            placeholder="Username"
-                            type="name"
-                            name="name"
+                            placeholder="Search events..."
+                            type="text"
+                            name="events-search"
                             size="3"
                             onChange={(e) => onSearch(e.target.value)}
-                            autoComplete="name"
+                            autoComplete="events-search"
                         />
                     </TextField.Root>
                 </Box>
@@ -65,28 +65,28 @@ const Filter = ({ onSearch, onFilter, filter }: FilterProps) => {
                         Upcoming
                     </Button>
                     <Button
-                        variant={filter === "past" ? "solid" : "soft"}
-                        onClick={() => handleOnFilter("past")}
+                        variant={filter === 2024 ? "solid" : "soft"}
+                        onClick={() => handleOnFilter(2024)}
                     >
                         2024
                     </Button>
                     <Button
-                        variant={filter === "past" ? "solid" : "soft"}
-                        onClick={() => handleOnFilter("past")}
+                        variant={filter === 2023 ? "solid" : "soft"}
+                        onClick={() => handleOnFilter(2023)}
                     >
                         2023
                     </Button>
                 </Box>
             </Grid>
-            <Box className="flex justify-end">
-                <Collapsible.Root className="flex justify-end items-end flex-col gap-2">
+            <Box className="flex justify-start sm:justify-end">
+                <Collapsible.Root className="flex justify-start sm:justify-end items-start sm:items-end flex-col gap-2">
                     <Collapsible.Trigger>
-                        <Text size="1" align="right">
+                        <Text size="1" className="text-left sm:text-right">
                             + Show more...
                         </Text>
                     </Collapsible.Trigger>
                     <Collapsible.Content>
-                        <Box className="flex gap-2 sm:justify-end">
+                        <Box className="flex gap-2 justify-start sm:justify-end">
                             <Button
                                 variant="soft"
                                 onClick={() => onFilter("free")}

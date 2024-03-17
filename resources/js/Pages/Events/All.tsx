@@ -14,7 +14,7 @@ type EventsPageProps = {
 
 export default function All({ auth, events }: EventsPageProps) {
     const [filteredEvents, setFilteredEvents] = useState(events);
-    const [filter, setFilter] = useState("");
+    const [filter, setFilter] = useState<string | number>("");
 
     const onSearch = (value: string) => {
         const filtered = events.filter((event) =>
@@ -23,19 +23,22 @@ export default function All({ auth, events }: EventsPageProps) {
         setFilteredEvents(filtered);
     };
 
-    const onFilter = (value: string) => {
+    const onFilter = (value: string | number) => {
         setFilter(value);
 
-        if (value === "") {
+        if (value === "" || !value) {
             setFilteredEvents(events);
             return;
         }
 
         const filtered = events.filter((event) => {
-            console.log(event.start);
-            console.log(event.link);
+            if (value === "upcoming") {
+                return Date.parse(event.start) > Date.now();
+            }
 
-            return event.start === value;
+            if (typeof value === "number") {
+                return new Date(event.start).getFullYear() === value;
+            }
         });
         setFilteredEvents(filtered);
     };
