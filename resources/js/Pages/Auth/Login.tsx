@@ -1,11 +1,23 @@
 import { useEffect, FormEventHandler } from "react";
-import Checkbox from "@/Components/Checkbox";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
+import {
+    Button,
+    Checkbox,
+    Flex,
+    TextField,
+    Text,
+    Box,
+    Link as RadixLink,
+    Separator,
+    Container,
+} from "@radix-ui/themes";
+import {
+    ArrowRightIcon,
+    LockClosedIcon,
+    PersonIcon,
+} from "@radix-ui/react-icons";
 
 export default function Login({
     status,
@@ -36,74 +48,105 @@ export default function Login({
         <GuestLayout>
             <Head title="Log in" />
             {status && (
-                <div className="mb-4 font-medium text-sm text-green-600">
+                <Box className="mb-4 font-medium text-sm text-green-600">
                     {status}
-                </div>
+                </Box>
             )}
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
+            <Container size="1">
+                <Box py="9">
+                    <form onSubmit={submit}>
+                        <Box>
+                            <TextField.Root>
+                                <TextField.Slot>
+                                    <PersonIcon height="16" width="16" />
+                                </TextField.Slot>
+                                <TextField.Input
+                                    placeholder="Username"
+                                    type="email"
+                                    size="3"
+                                    onChange={(e) =>
+                                        setData("email", e.target.value)
+                                    }
+                                    autoComplete="email"
+                                />
+                            </TextField.Root>
+                        </Box>
 
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        isFocused={true}
-                        onChange={(e) => setData("email", e.target.value)}
-                    />
+                        <Box className="mt-4">
+                            <TextField.Root>
+                                <TextField.Slot>
+                                    <LockClosedIcon height="16" width="16" />
+                                </TextField.Slot>
+                                <TextField.Input
+                                    placeholder="Password"
+                                    type="password"
+                                    size="3"
+                                    onChange={(e) =>
+                                        setData("password", e.target.value)
+                                    }
+                                />
+                            </TextField.Root>
+                        </Box>
 
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
+                        <Box className="mt-4">
+                            {canResetPassword && (
+                                <Link href={route("password.request")}>
+                                    <RadixLink size="2">
+                                        Forgot your password?
+                                    </RadixLink>
+                                </Link>
+                            )}
+                        </Box>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                        onChange={(e) => setData("password", e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="block mt-4">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            checked={data.remember}
-                            onChange={(e) =>
-                                setData("remember", e.target.checked)
-                            }
-                        />
-                        <span className="ms-2 text-sm text-gray-600">
-                            Remember me
-                        </span>
-                    </label>
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    {canResetPassword && (
-                        <Link
-                            href={route("password.request")}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        <Flex
+                            direction="row"
+                            gap="2"
+                            align={"center"}
+                            justify={"between"}
+                            mt="6"
                         >
-                            Forgot your password?
-                        </Link>
-                    )}
+                            <Text as="label" size="2">
+                                <Flex gap="2">
+                                    <Checkbox
+                                        name="remember"
+                                        checked={data.remember}
+                                        onCheckedChange={(checkedState) =>
+                                            setData("remember", !!checkedState)
+                                        }
+                                    />
+                                    Remember me
+                                </Flex>
+                            </Text>
+                            <Button
+                                className="ms-4"
+                                disabled={processing}
+                                size={"3"}
+                            >
+                                Log in
+                            </Button>
+                        </Flex>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
-                </div>
-            </form>
+                        <Separator mt="4" mb="6" size="4" />
+
+                        <Flex
+                            className="text-right"
+                            direction="row"
+                            gap="2"
+                            align={"center"}
+                            justify={"between"}
+                        >
+                            <Text size="2">Don't have an account yet?</Text>
+                            <Link href={route("register")}>
+                                <RadixLink size="2">
+                                    <Button size="2" variant="surface">
+                                        Register <ArrowRightIcon />
+                                    </Button>
+                                </RadixLink>
+                            </Link>
+                        </Flex>
+                    </form>
+                </Box>
+            </Container>
         </GuestLayout>
     );
 }

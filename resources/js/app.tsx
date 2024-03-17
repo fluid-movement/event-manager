@@ -21,7 +21,7 @@ createInertiaApp({
         const root = createRoot(el);
 
         root.render(
-            <Theme>
+            <Theme appearance="inherit" accentColor="grass" radius="small">
                 <App {...props} />
             </Theme>
         );
