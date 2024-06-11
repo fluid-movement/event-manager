@@ -1,4 +1,3 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types/page";
 import { Container, Separator } from "@radix-ui/themes";
@@ -48,14 +47,7 @@ export default function All({ auth, events }: EventsPageProps) {
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Events - All
-                </h2>
-            }
-        >
+        <>
             <Head title="Dashboard" />
 
             <Container size="3">
@@ -73,6 +65,6 @@ export default function All({ auth, events }: EventsPageProps) {
                     <EventCard event={event} key={event.id} />
                 ))}
             </Container>
-        </AuthenticatedLayout>
+        </>
     );
 }

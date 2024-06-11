@@ -1,5 +1,4 @@
 import { useEffect, FormEventHandler } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import {
     Button,
@@ -44,7 +43,7 @@ export default function Login({
     };
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Log in" />
             {status && (
                 <Box className="mb-4 font-medium text-sm text-green-600">
@@ -146,6 +145,6 @@ export default function Login({
                     </form>
                 </Box>
             </Container>
-        </GuestLayout>
+        </>
     );
 }

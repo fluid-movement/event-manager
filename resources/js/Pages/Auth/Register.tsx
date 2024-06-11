@@ -1,5 +1,4 @@
 import { useEffect, FormEventHandler } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
 import { Head, Link, useForm } from "@inertiajs/react";
 import {
@@ -43,7 +42,7 @@ export default function Register() {
     console.log(data);
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Register" />
 
             <Container size="1">
@@ -181,6 +180,6 @@ export default function Register() {
                     </form>
                 </Box>
             </Container>
-        </GuestLayout>
+        </>
     );
 }
