@@ -6,7 +6,7 @@ graph
 	group["Group"]
 	event["Event"]
 	user -- is in --> group
-	user -- creates --> event
+	group -- creates --> event
 	user -- subscribes to --> event
 	event -- hosted by --> group
 ```
@@ -21,6 +21,20 @@ https://trello.com/b/iEyCEVau/event-calendar
 - The organizers (members of the crew) can see who has subscribed to their event and send notifications to them (useful during events)
 - **no social features** Users can't see other users, no public profiles
 - "new events" section, events since the last time the user looked at the page
+
+## Installation
+
+### Requirements
+You need composer and npm installed
+```
+composer install
+php artisan migrate
+php artisan db:seed
+
+npm install
+npm run dev
+```
+
 
 ## API
 https://documenter.getpostman.com/view/32067704/2s9YyvC1LU
